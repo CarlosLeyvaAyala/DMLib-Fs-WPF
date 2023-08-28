@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0-windows;net7.0-windows</TargetFrameworks>
+    <RootNamespace>DMLib_Fs_WPF</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageId>carlos.leyva.ayala.dmlibwpf</PackageId>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>DM Lib for F# WPF</Title>
+		<Authors>Carlos Leyva Ayala</Authors>
+		<Description>F# WPF library for general common operations and types.</Description>
+		<Version>1.0.0</Version>
+		<PackageVersion>1.0.0</PackageVersion>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Dialogs.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="carlos.leyva.ayala.dmlib" Version="1.2.29" />
+    <PackageReference Include="FSharp.Core.Wpf.Core" Version="5.0.3" />
+    <PackageReference Include="WindowsAPICodePack" Version="7.0.4" />
+  </ItemGroup>
+
+</Project>

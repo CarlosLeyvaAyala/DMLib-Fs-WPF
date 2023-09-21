@@ -4,16 +4,18 @@
     <TargetFrameworks>net6.0-windows;net7.0-windows</TargetFrameworks>
     <RootNamespace>DMLib_Fs_WPF</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<PackageId>carlos.leyva.ayala.dmlibwpf</PackageId>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>DM Lib for F# WPF</Title>
-		<Authors>Carlos Leyva Ayala</Authors>
-		<Description>F# WPF library for general common operations and types.</Description>
-		<Version>1.0.0.1</Version>
-		<PackageVersion>1.0.0.1</PackageVersion>
-	</PropertyGroup>
+    <PackageId>carlos.leyva.ayala.dmlibwpf</PackageId>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>DM Lib for F# WPF</Title>
+    <Authors>Carlos Leyva Ayala</Authors>
+    <Description>F# WPF library for general common operations and types.</Description>
+    <Version>1.0.1</Version>
+    <PackageVersion>1.0.1</PackageVersion>
+  </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Validators\RangeChecker.fs" />
+    <Compile Include="Validators\Regex.fs" />
     <Compile Include="Dialogs.fs" />
     <Compile Include="Commands.fs" />
   </ItemGroup>

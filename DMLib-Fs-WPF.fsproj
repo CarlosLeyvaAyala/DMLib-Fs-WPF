@@ -9,8 +9,8 @@
     <Title>DM Lib for F# WPF</Title>
     <Authors>Carlos Leyva Ayala</Authors>
     <Description>F# WPF library for general common operations and types.</Description>
-    <Version>1.0.2</Version>
-    <PackageVersion>1.0.2</PackageVersion>
+    <Version>1.0.5</Version>
+    <PackageVersion>1.0.5</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +19,7 @@
     <Compile Include="Dialogs.fs" />
     <Compile Include="Commands.fs" />
     <Compile Include="Controls\ListBox.fs" />
+    <Compile Include="PageNavigationContext.fs" />
   </ItemGroup>
 
   <ItemGroup>

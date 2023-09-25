@@ -20,6 +20,8 @@
     <Compile Include="Commands.fs" />
     <Compile Include="Controls\ListBox.fs" />
     <Compile Include="PageNavigationContext.fs" />
+    <Compile Include="ApplicationContext\WindowsSoundPlayer.fs" />
+    <Compile Include="ApplicationContext\ApplicationContext.fs" />
   </ItemGroup>
 
   <ItemGroup>

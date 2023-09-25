@@ -4,6 +4,8 @@ open DMLib_WPF.Controls
 open DMLib
 open System
 open System.Windows.Controls
+open DMLib_WPF.Controls.ListBox
+open System.Windows
 
 /// Members expected to have, but can not be added due to type constraints:
 ///         t.Nav, t.SelectedItem, t.NavSelectedItem.
@@ -14,6 +16,8 @@ type PageNavigationContext() =
     inherit WPFBindable()
 
     let mutable isFinishedLoading = false
+
+    member val OwnerWindow: Window = null with get, set
 
     member t.IsFinishedLoading
         with get () = isFinishedLoading
@@ -41,6 +45,16 @@ type PageNavigationContext() =
     member t.ReloadNavAndGoToFirst() =
         t.LoadNav()
         ListBox.selectFirst t.NavControl
+
+    member t.ReloadNavAndGoToIndex idx =
+        t.LoadNav()
+        t.NavControl.SelectedIndex <- t.NavControl |> ListBox.ensureValidIndex idx
+
+    member t.DeleteSelected doDelete =
+        let i = indexAfterDeleting t.NavControl
+        doDelete ()
+        t.NavControl.SelectedIndex <- i
+        t.ReloadNavAndGoToIndex i
 
     abstract member ReloadNavAndGoToCurrent: unit -> unit
 

@@ -28,7 +28,7 @@ type PageNavigationContext() =
     abstract member OnFinishedLoadingChange: unit -> unit
 
     default t.OnFinishedLoadingChange() =
-        t.OnPropertyChanged("CanItemBeSelected")
+        t.OnPropertyChanged(nameof t.CanItemBeSelected)
 
     member t.OnceFinishedLoading whenLoaded whenNotLoaded =
         if not t.IsFinishedLoading then
@@ -70,5 +70,5 @@ type PageNavigationContext() =
 
     /// Select item when the ListBox selection changes
     default t.SelectCurrentItem() =
-        t.OnPropertyChanged("CanItemBeSelected")
+        t.OnPropertyChanged(nameof t.CanItemBeSelected)
         t.OnPropertyChanged("SelectedItem")

@@ -68,7 +68,10 @@ type PageNavigationContext() =
 
     abstract member SelectCurrentItem: unit -> unit
 
+    member t.HasItemsSelected = t.NavControl.SelectedItems.Count > 0
+
     /// Select item when the ListBox selection changes
     default t.SelectCurrentItem() =
-        t.OnPropertyChanged(nameof t.CanItemBeSelected)
+        nameof t.CanItemBeSelected |> t.OnPropertyChanged
+        nameof t.HasItemsSelected |> t.OnPropertyChanged
         t.OnPropertyChanged("SelectedItem")

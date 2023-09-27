@@ -1,9 +1,9 @@
 ﻿namespace DMLib_WPF.Validators
 
-open DMLib
 open DMLib.MathL
 open System
 open System.ComponentModel
+open DMLib_WPF
 
 [<AbstractClass>]
 type RangeChecker<'a when 'a: comparison>(min: 'a, max: 'a) =

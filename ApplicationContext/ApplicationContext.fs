@@ -1,6 +1,6 @@
 ﻿namespace DMLib_WPF.Contexts
 
-open DMLib
+open DMLib_WPF
 open System.Windows
 
 type ApplicationContext() =

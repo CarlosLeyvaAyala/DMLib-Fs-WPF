@@ -1,16 +1,19 @@
 ﻿namespace DMLib_WPF.Contexts
 
 open DMLib_WPF.Controls
-open DMLib
 open System
 open System.Windows.Controls
 open DMLib_WPF.Controls.ListBox
 open System.Windows
+open DMLib_WPF
 
 /// Members expected to have, but can not be added due to type constraints:
 ///         t.Nav, t.SelectedItem, t.NavSelectedItem.
 /// Will always need to be overriden:
 ///         t.SelectCurrentItem
+///
+/// A property to navigate by using ListBox.SelectedItem was attempted, but it
+/// slow and moody.
 [<AbstractClass>]
 type PageNavigationContext() =
     inherit WPFBindable()
@@ -75,3 +78,5 @@ type PageNavigationContext() =
         nameof t.CanItemBeSelected |> t.OnPropertyChanged
         nameof t.HasItemsSelected |> t.OnPropertyChanged
         t.OnPropertyChanged("SelectedItem")
+
+    member t.ReloadSelectedItem() = t.SelectCurrentItem()

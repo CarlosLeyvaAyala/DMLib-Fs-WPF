@@ -2,6 +2,7 @@
 
 open System.Windows.Controls
 open System.Text.RegularExpressions
+open DMLib.Objects
 
 /// Validates that a regular expression is valid
 type RegexRule() =
@@ -9,7 +10,13 @@ type RegexRule() =
 
     override _.Validate(value: obj, _) =
         try
-            let _ = Regex(value :?> string)
+            Regex(
+                match value with
+                | IsNotNull v -> v :?> string
+                | _ -> ""
+            )
+            |> ignore
+
             ValidationResult.ValidResult
         with
         | _ -> ValidationResult(false, "Not a valid regular expression")

@@ -19,7 +19,7 @@ module private AutoCompletePrivateOps =
 
     let getChanges (e: TextChangedEventArgs) =
         if e.Changes
-           |> Seq.filter (fun c -> c.AddedLength > 0 || c.RemovedLength > 0)
+           |> Seq.filter (fun c -> c.AddedLength > 0)
            |> Seq.isEmpty then
             Error()
         else
@@ -93,7 +93,7 @@ type Autocomplete private () =
 
             let! textToMatch = requireStr textToMatch'
             let txtLen = textToMatch.Length
-            let comparison = StringComparison.InvariantCultureIgnoreCase
+            let comparison = Autocomplete.GetStringComparison tb
 
             let! match' =
                 values
@@ -161,6 +161,14 @@ type Autocomplete private () =
             UIPropertyMetadata(true)
         )
 
+    static let StringComparisonProperty =
+        DependencyProperty.RegisterAttached(
+            "StringComparison",
+            typeof<StringComparison>,
+            typeof<Autocomplete>,
+            UIPropertyMetadata(StringComparison.Ordinal)
+        )
+
     // -------------------------------
     // Properties setters/getters
     static member SetItemsSource (a: DependencyObject) (v: IEnumerable<string>) = a.SetValue(ItemsSourceProperty, v)
@@ -182,3 +190,9 @@ type Autocomplete private () =
 
     static member GetAlwaysAutocompleteStart(a: DependencyObject) =
         a.GetValue MultipleIndicatorsProperty :?> bool
+
+    static member SetStringComparison (a: DependencyObject) (v: StringComparison) =
+        a.SetValue(StringComparisonProperty, v)
+
+    static member GetStringComparison(a: DependencyObject) =
+        a.GetValue StringComparisonProperty :?> StringComparison

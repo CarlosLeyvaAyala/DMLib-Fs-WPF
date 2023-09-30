@@ -20,8 +20,6 @@ type PageNavigationContext() =
 
     let mutable isFinishedLoading = false
 
-    member val OwnerWindow: Window = null with get, set
-
     member t.IsFinishedLoading
         with get () = isFinishedLoading
         and set v =

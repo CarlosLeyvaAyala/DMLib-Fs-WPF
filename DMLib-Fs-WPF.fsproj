@@ -14,8 +14,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="IO\FileChangeWatcher.fs" />
     <Compile Include="WPFBindable.fs" />
+    <Compile Include="IO\FileChangeWatcher.fs" />
+    <Compile Include="IO\FileWatcherCollection.fs" />
     <Compile Include="Validators\RangeChecker.fs" />
     <Compile Include="Validators\Regex.fs" />
     <Compile Include="Dialogs.fs" />

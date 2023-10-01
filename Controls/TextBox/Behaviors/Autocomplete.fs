@@ -9,6 +9,7 @@ open DMLib.String
 open DMLib.Combinators
 open System
 open DMLib
+open System.Windows.Data
 
 [<AutoOpen>]
 module private AutoCompletePrivateOps =
@@ -110,13 +111,17 @@ type Autocomplete private () =
 
             let matchStart = textToMatchStart + textToMatch.Length
             canChange <- Error()
-            tb.Text <- replaceAt txt textToMatchStart match'
+            let newTxt = replaceAt txt textToMatchStart match'
+
+            match BindingOperations.GetBinding(tb, TextBox.TextProperty) with
+            | null -> tb.Text <- newTxt
+            | _ -> tb.SetCurrentValue(TextBox.TextProperty, newTxt)
+
             tb.CaretIndex <- matchStart
             tb.SelectionStart <- matchStart
             tb.SelectionLength <- tb.Text.Length - textToMatchStart
             canChange <- Ok()
 
-            Debug.WriteLine "It's working"
             return ()
         }
         |> ignore

@@ -26,6 +26,10 @@ type PageNavigationContext() =
             isFinishedLoading <- v
             t.OnFinishedLoadingChange()
 
+    /// The WPF app says this page was activated.
+    abstract member Activate: unit -> unit
+    default t.Activate() = ()
+
     abstract member OnFinishedLoadingChange: unit -> unit
 
     default t.OnFinishedLoadingChange() =

@@ -2,7 +2,6 @@
 
 open System.Windows
 open System.Windows.Controls
-open System.Diagnostics
 open System.Collections.Generic
 open DMLib.Objects
 open DMLib.String
@@ -66,6 +65,21 @@ module private AutoCompletePrivateOps =
             | start, _ -> // Indicator was expected and found
                 Ok(start + 1, txt[start + 1 ..])
 
+// Example usage:
+// ------------------------------------
+//<TextBox
+//    xmlns:tb="clr-namespace:DMLib_WPF.Controls.TextBox.Behaviors;assembly=DMLib-Fs-WPF"
+//    tb:Autocomplete.Indicator=",+-"
+//    tb:Autocomplete.ItemsSource="{Binding SPIDStrings}"
+//    tb:Autocomplete.StringComparison="CurrentCultureIgnoreCase">
+//</TextBox>
+// 
+// ------------------------------------
+// Autocomplete.SetItemsSource(textBox, a);
+// Autocomplete.SetIndicator(textBox, ", +-");
+// Autocomplete.SetStringComparison(textBox, StringComparison.CurrentCultureIgnoreCase);
+
+/// Gives autocompletion suggestions.
 [<Sealed>]
 type Autocomplete private () =
     inherit DependencyObject()
@@ -191,10 +205,10 @@ type Autocomplete private () =
         a.GetValue MultipleIndicatorsProperty :?> bool
 
     static member SetAlwaysAutocompleteStart (a: DependencyObject) (v: bool) =
-        a.SetValue(MultipleIndicatorsProperty, v)
+        a.SetValue(AlwaysAutocompleteStartProperty, v)
 
     static member GetAlwaysAutocompleteStart(a: DependencyObject) =
-        a.GetValue MultipleIndicatorsProperty :?> bool
+        a.GetValue AlwaysAutocompleteStartProperty :?> bool
 
     static member SetStringComparison (a: DependencyObject) (v: StringComparison) =
         a.SetValue(StringComparisonProperty, v)

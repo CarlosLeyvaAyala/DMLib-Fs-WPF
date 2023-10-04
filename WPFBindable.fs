@@ -39,3 +39,7 @@ type WPFBindable() =
 
     /// Sends a message telling all properties were updated.
     member t.OnPropertyChanged() = t.OnPropertyChanged("")
+
+    member t.OnPropertyChanged a =
+        a
+        |> List.iter (fun (s: string) -> s |> t.OnPropertyChanged)

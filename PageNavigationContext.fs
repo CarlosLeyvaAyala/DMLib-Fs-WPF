@@ -42,10 +42,15 @@ type PageNavigationContext() =
             whenLoaded ()
 
     member val EnabledControlsConditions: Func<bool> = null with get, set
-
     member val NavControl: ListBox = null with get, set
 
-    member t.LoadNav() = t.OnPropertyChanged("Nav")
+    abstract member RebuildNav: unit -> unit
+
+    /// Sends the signal to build the nav.
+    /// Nav won't be built until IsFinishedLoading is set to true.
+    member t.LoadNav() =
+        t.RebuildNav()
+        t.OnPropertyChanged("Nav")
 
     member t.ReloadNavAndGoToFirst() =
         t.LoadNav()

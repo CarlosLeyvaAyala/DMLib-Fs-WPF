@@ -19,6 +19,7 @@
     <Compile Include="IO\File.fs" />
     <Compile Include="IO\FileChangeWatcher.fs" />
     <Compile Include="IO\FileWatcherCollection.fs" />
+    <Compile Include="Converters\ComparisonConverter.fs" />
     <Compile Include="Validators\RangeChecker.fs" />
     <Compile Include="Validators\Regex.fs" />
     <Compile Include="Dialogs.fs" />
@@ -38,7 +39,5 @@
   <ItemGroup>
     <ProjectReference Include="..\DMLib-FSharp\DMLib-FSharp.fsproj" />
   </ItemGroup>
-
-  <ItemGroup />
 
 </Project>

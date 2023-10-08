@@ -146,6 +146,9 @@ type Autocomplete private () =
             match e.Key, sender :?> TextBox with
             // Go to end of text when ENTER is pressed.
             | (Equals Key.Return, IsNotNull tb) when tb.SelectedText <> null -> tb.CaretIndex <- tb.Text.Length
+            | Equals Key.LeftAlt, _
+            | Equals Key.RightAlt, _
+            | _ when e.KeyboardDevice.Modifiers = ModifierKeys.Alt -> ()
             | _ -> Autocomplete.CanChange <- true)
 
     static let onKeyUp = KeyEventHandler(fun _ _ -> Autocomplete.CanChange <- false)

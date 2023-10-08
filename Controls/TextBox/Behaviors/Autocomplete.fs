@@ -9,6 +9,7 @@ open DMLib.Combinators
 open System
 open DMLib
 open System.Windows.Data
+open System.Windows.Input
 
 [<AutoOpen>]
 module private AutoCompletePrivateOps =
@@ -73,7 +74,7 @@ module private AutoCompletePrivateOps =
 //    tb:Autocomplete.ItemsSource="{Binding SPIDStrings}"
 //    tb:Autocomplete.StringComparison="CurrentCultureIgnoreCase">
 //</TextBox>
-// 
+//
 // ------------------------------------
 // Autocomplete.SetItemsSource(textBox, a);
 // Autocomplete.SetIndicator(textBox, ", +-");
@@ -83,11 +84,11 @@ module private AutoCompletePrivateOps =
 [<Sealed>]
 type Autocomplete private () =
     inherit DependencyObject()
-    static let mutable canChange = Ok()
+    static let mutable canChange = false
 
     static let OnTextChanged (sender: obj) (e: TextChangedEventArgs) =
         result {
-            let! _ = canChange
+            let! _ = if canChange then Ok() else Error()
             let! _ = getOriginalSource e // No original source. Get out.
             let! _ = getChanges e // No changes. Get out.
             let! tb = getTextbox sender
@@ -103,7 +104,6 @@ type Autocomplete private () =
                     (Autocomplete.GetIndicator tb)
                     (Autocomplete.GetMultipleIndicators tb)
                     (Autocomplete.GetAlwaysAutocompleteStart tb)
-                    //txt
                     (txt[.. tb.CaretIndex])
 
             let! textToMatch = requireStr textToMatch'
@@ -117,14 +117,13 @@ type Autocomplete private () =
                     if s.Length >= txtLen
                        && s[ .. txtLen - 1 ].Equals(textToMatch, comparison) then
                         Some(s)
-                    //Some(s, s[txtLen..])
                     else
                         None)
                 |> Array.first
                 |> Result.ofOption ()
 
             let matchStart = textToMatchStart + textToMatch.Length
-            canChange <- Error()
+            canChange <- false
             let newTxt = replaceAt txt textToMatchStart match'
 
             match BindingOperations.GetBinding(tb, TextBox.TextProperty) with
@@ -134,7 +133,7 @@ type Autocomplete private () =
             tb.CaretIndex <- matchStart
             tb.SelectionStart <- matchStart
             tb.SelectionLength <- tb.Text.Length - textToMatchStart
-            canChange <- Ok()
+            canChange <- false
 
             return ()
         }
@@ -142,13 +141,26 @@ type Autocomplete private () =
 
     static let onTextChanged = TextChangedEventHandler(OnTextChanged)
 
+    static let onKeyDown =
+        KeyEventHandler (fun sender e ->
+            match e.Key, sender :?> TextBox with
+            // Go to end of text when ENTER is pressed.
+            | (Equals Key.Return, IsNotNull tb) when tb.SelectedText <> null -> tb.CaretIndex <- tb.Text.Length
+            | _ -> Autocomplete.CanChange <- true)
+
+    static let onKeyUp = KeyEventHandler(fun _ _ -> Autocomplete.CanChange <- false)
+
     static let onAutoCompleteItemsSource (sender: obj) (e: DependencyPropertyChangedEventArgs) =
         match sender with
         | :? TextBox as tb ->
             tb.TextChanged.RemoveHandler onTextChanged
+            tb.KeyDown.RemoveHandler onKeyDown
+            tb.KeyUp.RemoveHandler onKeyUp
 
             if isNotNull e.NewValue then
                 tb.TextChanged.AddHandler onTextChanged
+                tb.KeyDown.AddHandler onKeyDown
+                tb.KeyUp.AddHandler onKeyUp
         | _ -> ()
 
     // -------------------------------
@@ -215,3 +227,7 @@ type Autocomplete private () =
 
     static member GetStringComparison(a: DependencyObject) =
         a.GetValue StringComparisonProperty :?> StringComparison
+
+    static member CanChange
+        with get () = canChange
+        and set v = canChange <- v

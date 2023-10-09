@@ -2,27 +2,27 @@
 
 open System.Windows.Input
 
-type Cmd =
-    { name: string
-      text: string
-      keyDisplay: string
+type Gesture =
+    { keyDisplay: string
       key: Key
       modifiers: ModifierKeys }
 
-let createCmd typeFunc v =
+type Cmd =
+    { name: string
+      text: string
+      gestures: Gesture list }
+
+let createCmd<'a> v =
     let inputs = InputGestureCollection()
 
-    inputs.Add(KeyGesture(v.key, v.modifiers, v.keyDisplay))
-    |> ignore
+    v.gestures
+    |> List.iter (fun g ->
+        inputs.Add(KeyGesture(g.key, g.modifiers, g.keyDisplay))
+        |> ignore)
 
-    RoutedUICommand(v.text, v.name, typeFunc (), inputs)
+    RoutedUICommand(v.text, v.name, typeof<'a>, inputs)
 
-let blankCmd =
-    { name = ""
-      text = ""
-      keyDisplay = ""
-      key = Key.None
-      modifiers = ModifierKeys.None }
+let blankCmd = { name = ""; text = ""; gestures = [] }
 
 let basicCmd (create: Cmd -> RoutedUICommand) name text =
     { blankCmd with

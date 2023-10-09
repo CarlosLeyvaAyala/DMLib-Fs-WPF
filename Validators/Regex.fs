@@ -6,9 +6,9 @@ open DMLib.Objects
 
 /// Validates that a regular expression is valid
 type RegexRule() =
-    inherit ValidationRule()
+    inherit ToggleRule()
 
-    override _.Validate(value: obj, _) =
+    override _.DoValidate value _ =
         try
             Regex(
                 match value with

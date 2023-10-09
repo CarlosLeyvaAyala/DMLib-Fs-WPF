@@ -1,7 +1,6 @@
 ﻿namespace DMLib_WPF
 
 open System.ComponentModel
-open System.Windows
 
 ///<summary>A class that has already enabled all plumbing to just tell WPF a property has changed.</summary>
 ///<remarks>Usage: inherit from this class. When a property has changed,

@@ -47,8 +47,9 @@ type FileChangeWatcherCollection() =
 
         for retry in [ 1 .. t.readingRetries ] do
             try
-                func arg
-                success <- true
+                if not success then
+                    func arg
+                    success <- true
             with
             | :? IOException -> wait t.delayBetweenReadings
 

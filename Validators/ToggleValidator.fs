@@ -1,8 +1,6 @@
 ﻿namespace DMLib_WPF.Validators
 
 open System.Windows.Controls
-open System.ComponentModel
-open DMLib.TupleCommon
 
 /// Validates that a regular expression is valid.
 ///

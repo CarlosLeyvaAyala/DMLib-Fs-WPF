@@ -4,8 +4,9 @@ open DMLib_WPF.Controls
 open System
 open System.Windows.Controls
 open DMLib_WPF.Controls.ListBox
-open System.Windows
+open DMLib
 open DMLib_WPF
+open System.Windows.Threading
 
 /// Members expected to have, but can not be added due to type constraints:
 ///         t.Nav, t.SelectedItem, t.NavSelectedItem.
@@ -19,6 +20,11 @@ type PageNavigationContext() =
     inherit WPFBindable()
 
     let mutable isFinishedLoading = false
+
+    member val GuiDispatcher: Dispatcher = null with get, set
+
+    member t.ExecuteInGUI f =
+        makeAsync (fun () -> t.GuiDispatcher.Invoke(Action f)) ()
 
     member t.IsFinishedLoading
         with get () = isFinishedLoading

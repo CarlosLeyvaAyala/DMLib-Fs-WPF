@@ -3,6 +3,7 @@
 open System.Windows.Controls
 open DMLib
 open System
+open DMLib.Objects
 
 /// Converts a ListBox items to an array of objects
 [<CompiledName("ItemsArray")>]
@@ -78,3 +79,9 @@ let selectIndexAfterDeleting (doSomething: Action) (lst: ListBox) =
 [<CompiledName("EnsureValidIndex")>]
 let ensureValidIndex idx (lst: ListBox) =
     Math.Clamp(idx, firstIndex lst, lastIndex lst)
+
+/// Makes sure to return an item only if the ListBox is assigned
+let getSelectedItem (lst: ListBox) =
+    match lst with
+    | IsNull -> null
+    | l -> l.SelectedItem

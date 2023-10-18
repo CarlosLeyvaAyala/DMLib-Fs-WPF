@@ -16,6 +16,8 @@ open DMLib.Objects
 ///
 /// A property to navigate by using ListBox.SelectedItem was attempted, but it
 /// slow and moody.
+/// SelectCurrentItem() must always be called in the ListBox.SelectionChanged event
+/// for the navigation to actually occur.
 [<AbstractClass>]
 type PageNavigationContext() =
     inherit WPFBindable()

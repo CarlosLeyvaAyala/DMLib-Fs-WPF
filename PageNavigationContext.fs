@@ -7,6 +7,7 @@ open DMLib_WPF.Controls.ListBox
 open DMLib
 open DMLib_WPF
 open System.Windows.Threading
+open DMLib.Objects
 
 /// Members expected to have, but can not be added due to type constraints:
 ///         t.Nav, t.SelectedItem, t.NavSelectedItem.
@@ -76,11 +77,12 @@ type PageNavigationContext() =
 
     /// Disables UI if an item can not be selected
     member t.CanItemBeSelected =
-        t.OnceFinishedLoading
-            (fun () ->
-                t.NavControl.Items.Count > 0
-                || t.EnabledControlsConditions.Invoke())
-            (fun () -> false)
+        let conditions () =
+            match t.EnabledControlsConditions with
+            | IsNull -> false
+            | action -> action.Invoke()
+
+        t.OnceFinishedLoading (fun () -> t.NavControl.Items.Count > 0 || conditions ()) (fun () -> false)
 
     abstract member SelectCurrentItem: unit -> unit
 

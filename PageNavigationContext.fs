@@ -65,6 +65,10 @@ type PageNavigationContext() =
         t.LoadNav()
         ListBox.selectFirst t.NavControl
 
+    member t.ReloadNavAndGoToLast() =
+        t.LoadNav()
+        ListBox.selectLast t.NavControl
+
     member t.ReloadNavAndGoToIndex idx =
         t.LoadNav()
         t.NavControl.SelectedIndex <- t.NavControl |> ListBox.ensureValidIndex idx

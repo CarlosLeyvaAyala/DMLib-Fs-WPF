@@ -43,4 +43,8 @@
     <ProjectReference Include="..\DMLib-FSharp\DMLib-FSharp.fsproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="7.0.401" />
+  </ItemGroup>
+
 </Project>

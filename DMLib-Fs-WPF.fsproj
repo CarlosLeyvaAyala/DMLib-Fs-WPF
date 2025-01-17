@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0-windows;net7.0-windows</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
     <RootNamespace>DMLib_Fs_WPF</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>carlos.leyva.ayala.dmlibwpf</PackageId>
@@ -14,7 +14,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="scripts\Command binding generator.fsx" />
     <None Include="scripts\dependency property gen.fsx" />
+    <Compile Include="CmdGen.fs" />
     <Compile Include="WPFBindable.fs" />
     <Compile Include="IO\File.fs" />
     <Compile Include="IO\FileChangeWatcher.fs" />
@@ -36,7 +38,7 @@
 
   <ItemGroup>
     <PackageReference Include="FSharp.Core.Wpf.Core" Version="5.0.3" />
-    <PackageReference Include="WindowsAPICodePack" Version="7.0.4" />
+    <PackageReference Include="WindowsAPICodePack" Version="8.0.6" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,7 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="7.0.401" />
+    <PackageReference Update="FSharp.Core" Version="9.0.100" />
   </ItemGroup>
 
 </Project>

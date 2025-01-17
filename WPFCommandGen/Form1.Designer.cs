@@ -212,6 +212,7 @@
             Controls.Add(tbFsClassName);
             Controls.Add(label1);
             Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "WPF Command Generator";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();

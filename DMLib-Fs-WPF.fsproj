@@ -22,6 +22,9 @@
     <Compile Include="IO\FileChangeWatcher.fs" />
     <Compile Include="IO\FileWatcherCollection.fs" />
     <Compile Include="Converters\ComparisonConverter.fs" />
+    <Compile Include="Converters\MathMultiplyConverter.fs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.fs" />
+    <Compile Include="Converters\EnumDescription.fs" />
     <Compile Include="Validators\ToggleValidator.fs" />
     <Compile Include="Validators\RangeChecker.fs" />
     <Compile Include="Validators\Regex.fs" />
@@ -46,7 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="9.0.100" />
+    <PackageReference Update="FSharp.Core" Version="9.0.201" />
   </ItemGroup>
 
 </Project>
